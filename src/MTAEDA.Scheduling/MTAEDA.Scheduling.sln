@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{49F4D00B-7DAE-4DC6-BBCE-C3DEF37D2DB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{18848C1D-121A-4CF5-97DD-956F87F2F1C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Listeners", "Listeners", "{0B4B7A94-B9F8-4942-982E-1D5604BC5920}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F758BF26-8F5D-4492-8048-0B00F2CD2B50}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTAEDA.Scheduling.Command.API", "MTAEDA.Scheduling.Command.API\MTAEDA.Scheduling.Command.API.csproj", "{6870B292-5FA7-47D6-A61E-BC9BA106D64B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTAEDA.Scheduling.Query.API", "MTAEDA.Scheduling.Query.API\MTAEDA.Scheduling.Query.API.csproj", "{48F8CAE3-1303-4CE8-A6E9-00EABE4E9A80}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTAEDA.Scheduling.Domain", "MTAEDA.Scheduling.Domain\MTAEDA.Scheduling.Domain.csproj", "{B65CAF21-AB49-45B5-95A7-E1973039662B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTAEDA.Scheduling.Infrastructure", "MTAEDA.Scheduling.Infrastructure\MTAEDA.Scheduling.Infrastructure.csproj", "{3D463B7B-2033-4E29-9427-C90597F789F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTAEDA.Scheduling.Listener", "MTAEDA.Scheduling.Listener\MTAEDA.Scheduling.Listener.csproj", "{DDDD2AA6-60CD-40CF-BF47-D2326959CB02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6870B292-5FA7-47D6-A61E-BC9BA106D64B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6870B292-5FA7-47D6-A61E-BC9BA106D64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6870B292-5FA7-47D6-A61E-BC9BA106D64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6870B292-5FA7-47D6-A61E-BC9BA106D64B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48F8CAE3-1303-4CE8-A6E9-00EABE4E9A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48F8CAE3-1303-4CE8-A6E9-00EABE4E9A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48F8CAE3-1303-4CE8-A6E9-00EABE4E9A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48F8CAE3-1303-4CE8-A6E9-00EABE4E9A80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B65CAF21-AB49-45B5-95A7-E1973039662B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B65CAF21-AB49-45B5-95A7-E1973039662B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B65CAF21-AB49-45B5-95A7-E1973039662B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B65CAF21-AB49-45B5-95A7-E1973039662B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D463B7B-2033-4E29-9427-C90597F789F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D463B7B-2033-4E29-9427-C90597F789F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D463B7B-2033-4E29-9427-C90597F789F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D463B7B-2033-4E29-9427-C90597F789F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDDD2AA6-60CD-40CF-BF47-D2326959CB02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDDD2AA6-60CD-40CF-BF47-D2326959CB02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDDD2AA6-60CD-40CF-BF47-D2326959CB02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDDD2AA6-60CD-40CF-BF47-D2326959CB02}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6870B292-5FA7-47D6-A61E-BC9BA106D64B} = {49F4D00B-7DAE-4DC6-BBCE-C3DEF37D2DB3}
+		{48F8CAE3-1303-4CE8-A6E9-00EABE4E9A80} = {49F4D00B-7DAE-4DC6-BBCE-C3DEF37D2DB3}
+		{B65CAF21-AB49-45B5-95A7-E1973039662B} = {18848C1D-121A-4CF5-97DD-956F87F2F1C9}
+		{3D463B7B-2033-4E29-9427-C90597F789F7} = {18848C1D-121A-4CF5-97DD-956F87F2F1C9}
+		{DDDD2AA6-60CD-40CF-BF47-D2326959CB02} = {0B4B7A94-B9F8-4942-982E-1D5604BC5920}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {416095C1-953E-4095-BECD-588D78260244}
+	EndGlobalSection
+EndGlobal

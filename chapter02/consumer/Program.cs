@@ -35,8 +35,7 @@ namespace consumer
                                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true);
                         IConfigurationRoot config = configuration.Build();
-                        _config = new ConsumerConfig() { BootstrapServers = config.GetValue<string>("KafkaServer"), GroupId = config.GetValue<string>("DefaultGroupId") };
-                        _config.AllowAutoCreateTopics = true;
+                        _config = new ConsumerConfig() { BootstrapServers = config.GetValue<string>("KafkaServer"), GroupId = config.GetValue<string>("DefaultGroupId"), AllowAutoCreateTopics = true,  };
                         topicName = config.GetValue<string>("Topic");
                     });
     }
