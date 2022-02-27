@@ -3,7 +3,7 @@
 {
 	"name": "C# (.NET)",
 	"build": {
-		"dockerfile": "Dockerfile",
+		"dockerfile": "../Dockerfile",
 		"args": { 
 			"VARIANT": "6.0",
 			"INSTALL_NODE": "true",
@@ -67,7 +67,7 @@
 	//      "mounts": [ "source=${env:HOME}${env:USERPROFILE}/.aspnet/https,target=/home/vscode/.aspnet/https,type=bind" ],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "dotnet restore",
+	"postCreateCommand": "chown -R $USER $HOME/.minikube && chmod -R u+wrx $HOME/.minikube && dotnet restore",
 	"mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
