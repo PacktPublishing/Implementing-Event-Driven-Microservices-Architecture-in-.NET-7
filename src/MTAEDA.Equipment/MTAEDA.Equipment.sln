@@ -19,7 +19,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{58846CAE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Listeners", "Listeners", "{9BC405A2-39F9-4833-B723-E59ED90A70E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTAEDA.Equipment.Listener", "MTAEDA.Equipment.Listener\MTAEDA.Equipment.Listener.csproj", "{5C355C9B-3327-4175-A235-7554DDC0752C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTAEDA.Equipment.Listener", "MTAEDA.Equipment.Listener\MTAEDA.Equipment.Listener.csproj", "{5C355C9B-3327-4175-A235-7554DDC0752C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CB9B23D4-A711-4FBE-BA22-EB57A2774559}"
+	ProjectSection(SolutionItems) = preProject
+		command-service-deployment.yaml = command-service-deployment.yaml
+		command-service-service.yaml = command-service-service.yaml
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
