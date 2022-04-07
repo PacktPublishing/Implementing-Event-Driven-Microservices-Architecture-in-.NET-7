@@ -60,10 +60,8 @@
         - JVM_OPTS=-Xms32M -Xmx64M
       depends_on:
         - broker1
-        - broker2
-    
     query-service:
-      build: 
+      build:
         context: ./MTAEDA.Equipment.Query.API
       depends_on:
         - query-service-db
@@ -73,14 +71,14 @@
       container_name: equip-cmd-svc
 
     query-service-db:
-      image: mcr.microsoft.com/mssql/server:2019-latest
+      image: mcr.microsoft.com/mssql/server:2019-latest      
       ports:
         - 1433:1433
       hostname: equip-event-db
       container_name: equip-event-db
       environment:
         - 'ACCEPT_EULA=Y'
-        - 'SA_PASSWORD=$AdminPassword'
+        - 'SA_PASSWORD: $ADMIN_PASSWORD'
 
     command-service:
       build:
@@ -93,7 +91,7 @@
       container_name: equip-cmd-svc
 
     event-listener:
-      build: 
+      build:
         context: ./MTAEDA.Equipment.Listener
       depends_on:
         - broker1
