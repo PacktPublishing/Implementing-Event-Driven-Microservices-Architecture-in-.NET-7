@@ -62,7 +62,8 @@
         - broker1
     query-service:
       build:
-        context: ./MTAEDA.Equipment.Query.API
+        context: .
+        dockerfile: ./MTAEDA.Equipment.Query.API/Dockerfile
       depends_on:
         - query-service-db
       ports:
@@ -78,11 +79,12 @@
       container_name: equip-event-db
       environment:
         - 'ACCEPT_EULA=Y'
-        - 'SA_PASSWORD: $ADMIN_PASSWORD'
+        - 'SA_PASSWORD=$ADMIN_PASSWORD'
 
     command-service:
       build:
-        context: ./MTAEDA.Equipment.API
+        context: .
+        dockerfile: ./MTAEDA.Equipment.API/Dockerfile
       depends_on:
         - broker1
       ports:
@@ -92,7 +94,8 @@
 
     event-listener:
       build:
-        context: ./MTAEDA.Equipment.Listener
+        context: .
+        dockerfile: ./MTAEDA.Equipment.Listener/Dockerfile
       depends_on:
         - broker1
       ports:
