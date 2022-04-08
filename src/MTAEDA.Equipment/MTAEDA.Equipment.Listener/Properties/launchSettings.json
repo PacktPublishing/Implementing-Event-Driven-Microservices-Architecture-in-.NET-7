@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MTAEDA.Equipment.Listener": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
