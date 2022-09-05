@@ -19,6 +19,5 @@ resource azurerm_kubernetes_cluster "aks-mtaeda-1" {
       min_count = 1
       max_count = 8
       vm_size = "standard_b4ms"
-    }
-    
+    }  
 }
