@@ -1,0 +1,23 @@
+kind: IOChaos
+apiVersion: chaos-mesh.org/v1alpha1
+metadata:
+  namespace: calico-system
+  name: virtual-stress-4
+spec:
+  selector:
+    nodeSelectors:
+      agentpool: agentpool
+    namespaces:
+      - calico-system
+      - default
+      - gatekeeper-system
+      - kube-node-lease
+      - kube-public
+      - mtaeda-infra
+      - tigera-operator
+  mode: all
+  action: fault
+  path: /var/chaos
+  percent: 100
+  volumePath: ''
+  duration: 10m
