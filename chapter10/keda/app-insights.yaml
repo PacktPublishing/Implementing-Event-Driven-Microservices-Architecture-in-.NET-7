@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: azure-app-insights-secrets
+data:
+  activeDirectoryClientId: <clientId>
+  activeDirectoryClientPassword: <clientPassword>
+  applicationInsightsId: <appInsightsAppId>
+  tenantId: <tenantId>
+---
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: azure-app-insights-trigger-auth
+spec:
+  secretTargetRef:
+    - parameter: activeDirectoryClientId
+      name: azure-app-insights-secrets
+      key: activeDirectoryClientId
+    - parameter: activeDirectoryClientPassword
+      name: azure-app-insights-secrets
+      key: activeDirectoryClientPassword
+    - parameter: applicationInsightsId
+      name: azure-app-insights-secrets
+      key: applicationInsightsId
+    - parameter: tenantId
+      name: azure-app-insights-secrets
+      key: tenantId
+  # or Pod Identity, kind: Secret is not required in case of pod Identity
+  podIdentity:
+      provider: azure | azure-workload
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: azure-app-insights-scaler
+spec:
+  scaleTargetRef:
+    name: azure-app-insights-example
+  minReplicaCount: 1
+  maxReplicaCount: 10
+  triggers:
+  - type: azure-app-insights
+    metadata:
+      metricId: "customMetrics/example-metric"
+      metricAggregationTimespan: "0:5"
+      metricAggregationType: avg
+      metricFilter: cloud/roleName eq 'example'
+      targetValue: "1"
+    authenticationRef:
+      name: azure-app-insights-trigger-auth

@@ -1,0 +1,15 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: mtaeda-kafka-scaler
+  namespace: mtaeda-infra
+spec:
+  scaleTargetRef:
+    name: kafka
+  pollingInterval: 30
+  triggers:
+  - type: kafka
+    metadata:
+      bootstrapServers: localhost:9092
+      consumerGroup: my-group       
+      topic: test-topic
