@@ -19,5 +19,10 @@ namespace MTAEDA.Equipment.Domain.Events
             TurnstileId = turnstileId;
             TransactionDate = tranDate;
         }
+
+        public static PassengerEgressEvent Create(int turnstileId)
+        {
+            return new PassengerEgressEvent(turnstileId, DateTime.Now);
+        }
     }
 }

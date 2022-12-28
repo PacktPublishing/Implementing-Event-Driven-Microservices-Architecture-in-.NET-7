@@ -1,6 +1,7 @@
 ﻿using MTAEDA.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,11 @@ namespace MTAEDA.Equipment.Domain.Events
         {
             TurnstileId = turnstileId;
             TransactionDate = tranDate;
+        }
+
+        public static PassengerIngressEvent Create(int turnstileId)
+        {
+            return new PassengerIngressEvent(turnstileId, DateTime.Now);
         }
     }
 }

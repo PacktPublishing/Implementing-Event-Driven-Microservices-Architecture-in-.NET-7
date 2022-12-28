@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTAEDA.Equipment.RetryFailback", "MTAEDA.Equipment.RetryFailback\MTAEDA.Equipment.RetryFailback.csproj", "{4612A9DF-2CCA-47FD-B604-7B600767B1A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{5C355C9B-3327-4175-A235-7554DDC0752C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C355C9B-3327-4175-A235-7554DDC0752C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C355C9B-3327-4175-A235-7554DDC0752C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4612A9DF-2CCA-47FD-B604-7B600767B1A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4612A9DF-2CCA-47FD-B604-7B600767B1A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4612A9DF-2CCA-47FD-B604-7B600767B1A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4612A9DF-2CCA-47FD-B604-7B600767B1A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{058C0CB3-A4E4-4D29-B860-9581243BF2AB} = {D4C6F6D6-348A-4166-91A4-A1AA87785FDF}
 		{1924CF89-1490-4261-926F-CC7D88CBB18B} = {E9F860EE-8242-448D-8367-9EF10B0BD4F8}
 		{5C355C9B-3327-4175-A235-7554DDC0752C} = {9BC405A2-39F9-4833-B723-E59ED90A70E0}
+		{4612A9DF-2CCA-47FD-B604-7B600767B1A3} = {9BC405A2-39F9-4833-B723-E59ED90A70E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89B492D2-AC6A-4348-B723-157F77F7AD1E}
