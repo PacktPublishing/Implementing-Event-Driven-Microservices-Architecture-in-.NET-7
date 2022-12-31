@@ -14,7 +14,7 @@ namespace MTAEDA.Core.Domain.Events
         public string FailoverSite { get;private set; }
         public string Domain { get; private set; }
         public string Action { get; private set; }
-        private RetryFailbackEvent(DateTime transactionDate)
+        public RetryFailbackEvent(DateTime transactionDate = default)
         {
             TransactionDate = transactionDate;
             FailoverSite = Domain = Action = default!;
