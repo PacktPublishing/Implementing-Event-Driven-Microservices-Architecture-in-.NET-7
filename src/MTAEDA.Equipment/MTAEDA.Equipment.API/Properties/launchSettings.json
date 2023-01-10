@@ -12,7 +12,7 @@
     "EquipmentDomain.API": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "/swagger/index.html",
+      "launchUrl": "swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_FORWARDEDHEADERS_ENABLED": "${env:CODESPACES}"

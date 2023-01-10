@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using MTAEDA.Core.Utility;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -31,5 +32,14 @@ namespace MTAEDA.Equipment.Infrastructure
             throw new NotImplementedException();
         }
 
+        IAsyncEnumerable<TResponse> ISender.CreateStream<TResponse>(IStreamRequest<TResponse> request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        IAsyncEnumerable<object?> ISender.CreateStream(object request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

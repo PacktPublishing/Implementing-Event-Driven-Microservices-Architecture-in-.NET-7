@@ -6,6 +6,10 @@ using MTAEDA.Core.Infrastructure;
 using MTAEDA.Core.Infrastructure.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Polly;
+using System;
+using Polly.Retry;
+using MTAEDA.Core.Utility;
 
 namespace MTAEDA.Equipment.API.Controllers
 {
@@ -18,6 +22,7 @@ namespace MTAEDA.Equipment.API.Controllers
         {
             Config = config;   
             Logger = logger;
+            
         }
 
         [HttpGet("up")]
@@ -32,27 +37,30 @@ namespace MTAEDA.Equipment.API.Controllers
             // TODO: Add logic here to determine if the endpoint is healthy or not
             return await Task.Run(() => { return new ContentResult() { Content = "health check OK", StatusCode = 200 }; });
         }
-        protected async Task<IActionResult> RaiseEvent(IDomainEvent evt)
+        protected async Task<IActionResult> RaiseEvent(IDomainEvent evt, string eventSubject)
         {
-            /*var qs = HttpUtility.ParseQueryString(Request.QueryString.Value);
-            if (qs["dest"] is null || string.IsNullOrEmpty(qs["dest"]))
+            string returnMessage = "Message sent";
+            int statusCode = 200;
+            try
             {
-                Logger.LogError("Cannot send a message to a topic with no name.", evt);
-                return new ContentResult() { Content = JsonSerializer.Serialize(new ProduceException<string, string>(new Error(ErrorCode.InvalidConfig, "No topic name provided."), null)), StatusCode = 500 };
-            }*/
-            IEventWriterProvider provider = new KafkaProducer("equipment", Config, Logger);
-            evt.DomainData = evt.GetType().ToString();
-            var cloudEvt = new CloudEvent()
-            {
-                Source = new System.Uri($"{Request.Scheme}://{Request.Host}/api/turnstile/event"),
-                Data = evt,
-                Time = System.DateTimeOffset.Now,
-                Type = "DomainEvent",
-                Subject = "Turnstile locked"
-            };
+                IEventWriterProvider provider = new KafkaProducer("equipment", Config, Logger);
+                evt.DomainData = evt.GetType().ToString();
+                var cloudEvt = await EventUtil.Pack(evt, new System.Uri($"{Request.Scheme}://{Request.Host}/api/turnstile/event"), CloudEventType.DomainEvent, eventSubject);
 
-            await provider.Send(cloudEvt);
-            return new ContentResult() { Content = "Message sent", StatusCode = 200 };
+                await provider.Send(cloudEvt);
+                Logger.LogTrace(cloudEvt.Id, returnMessage);
+                return new ContentResult() { Content = returnMessage, StatusCode = statusCode };
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message);
+                returnMessage = $"An error was encountered: {ex.Message}";
+                statusCode = 500;
+                throw ex;
+            }
+            
+            
+
         }
     }
 }
