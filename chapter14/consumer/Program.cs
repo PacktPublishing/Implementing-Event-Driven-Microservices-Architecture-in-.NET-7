@@ -17,7 +17,7 @@ namespace consumer
         static string topicName = "";
         static async Task Main(string[] args)
         {
-            Task.Run(() => {
+            var healthTask = Task.Run(() => {
                 var tcpHealthEndpoint = new TcpListener(IPAddress.Any, 123);
                 tcpHealthEndpoint.Start();
                 while (true)
@@ -38,6 +38,7 @@ namespace consumer
 
             var service = new consumerService(_config, topicName, telemetryClient);
             await service.Receive();
+            
         }
 
 

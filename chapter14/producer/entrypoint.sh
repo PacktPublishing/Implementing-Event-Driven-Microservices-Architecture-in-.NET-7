@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
 IP=`ip addr | grep -E 'eth0.*state UP' -A2 | tail -n 1 | awk '{print $2}' | cut -f1 -d '/'`
-NAME="$2-service"
+NAME="$2"
 
 read -r -d '' MSG << EOM
 {
-  "Name": "$NAME",
+  "id" : "$NAME-$IP",
+  "name": "$NAME",
   "address": "$IP",
   "port": $PORT,
-  "Check": {
+  "check": {
      "http": "http://$IP:$PORT",
      "interval": "5s"
   }

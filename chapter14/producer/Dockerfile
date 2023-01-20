@@ -23,7 +23,7 @@ RUN dotnet publish "producer.csproj" -c Release -o /app/publish
 
 FROM base AS final
 RUN apt update
-RUN apt-get install curl iproute2 -y
+RUN apt-get install curl iproute2 dnsutils -y
 WORKDIR /app
 COPY --from=publish /app/publish .
 COPY ./producer/entrypoint.sh .

@@ -31,9 +31,19 @@ namespace consumer
             while (!stoppingToken.IsCancellationRequested)
             {
                 consumer.Subscribe(topicName);
-                var result = consumer.Consume(stoppingToken);
-                consumer.Commit(result);
-                await new MessageReceivedEventHandler().Handle(result, _telemetryClient);
+                try
+                {
+                    var result = consumer.Consume(stoppingToken);
+                    consumer.Commit(result);
+                    await new MessageReceivedEventHandler().Handle(result, _telemetryClient);
+                }
+                catch (ConsumeException ex)
+                {
+                    _telemetryClient.TrackException(ex);
+                    Console.WriteLine($"Failed to consume events on topic '{topicName}': {ex.Message}");
+                    Thread.Sleep(10000);
+                }
+
             }
         }
     }

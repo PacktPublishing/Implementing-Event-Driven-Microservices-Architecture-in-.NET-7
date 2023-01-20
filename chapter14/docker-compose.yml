@@ -10,6 +10,12 @@ services:
       - PORT=123
     ports:
     - "123:123"
+    networks:
+      mtaeda:
+        ipv4_address: 10.3.0.11
+    dns:
+      - 10.3.0.9 #consul-server
+      - 1.1.1.1 #Cloudflare
     entrypoint: ./entrypoint.sh --type consumer
     depends_on:
     - consul-client
@@ -23,6 +29,12 @@ services:
       - PORT=123
     ports:
     - "124:123"
+    networks:
+      mtaeda:
+        ipv4_address: 10.3.0.2
+    dns:
+      - 10.3.0.9 #consul-server
+      - 1.1.1.1 #Cloudflare
     entrypoint: ./entrypoint.sh --type consumer
     depends_on:
     - consul-client
@@ -36,6 +48,12 @@ services:
       - PORT=80
     ports:
     - "5000:80"
+    networks:
+      mtaeda:
+        ipv4_address: 10.3.0.3
+    dns:
+      - 10.3.0.9 #consul-server
+      - 1.1.1.1 #Cloudflare
     entrypoint: ./entrypoint.sh --type producer
     depends_on:
     - consul-client
@@ -49,6 +67,12 @@ services:
       - PORT=80
     ports:
     - "5001:80"
+    networks:
+      mtaeda:
+        ipv4_address: 10.3.0.4
+    dns:
+      - 10.3.0.9 #consul-server
+      - 1.1.1.1 #Cloudflare
     entrypoint: ./entrypoint.sh --type producer
     depends_on:
     - consul-client
@@ -59,6 +83,9 @@ services:
     container_name: zookeeper
     ports:
     - "2181:2181"
+    networks:
+      mtaeda:
+        ipv4_address: 10.3.0.5
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ALLOW_ANONYMOUS_LOGIN: "yes"
@@ -71,6 +98,9 @@ services:
     - zookeeper
     ports:
     - "29092:29092"
+    networks:
+      mtaeda:
+        ipv4_address: 10.3.0.6
     environment:
       BROKER_ID: 1
       KAFKA_PORT: 9092
@@ -91,6 +121,9 @@ services:
     - zookeeper
     ports:
     - "29093:29093"
+    networks:
+      mtaeda:
+        ipv4_address: 10.3.0.7
     environment:
       BROKER_ID: 2
       KAFKA_PORT: 9093
@@ -107,6 +140,9 @@ services:
     image: obsidiandynamics/kafdrop
     ports:
     - 9100:9000
+    networks:
+      mtaeda:
+        ipv4_address: 10.3.0.8
     environment:
     - KAFKA_BROKERCONNECT=broker1:9092
     - JVM_OPTS=-Xms32M -Xmx64M
@@ -117,21 +153,37 @@ services:
   consul-server:
     image: hashicorp/consul:1.10.0
     container_name: consul-server
+    hostname: consul-server
     restart: always
     volumes:
      - ./consul/server.json:/consul/config/server.json:ro
     ports:
       - "8500:8500"
-      - "8600:8600/tcp"
-      - "8600:8600/udp"
+      - "8600:53/tcp"
+      - "8600:53/udp"
+    networks:
+      mtaeda:
+        ipv4_address: 10.3.0.9
     command: "agent"
 
   consul-client:
     image: hashicorp/consul:1.10.0
     container_name: consul-client
+    hostname: consul-client
     restart: always
     volumes:
      - ./consul/client.json:/consul/config/client.json:ro
     ports:
       - "8501:8500"
+      - "8601:53/tcp"
+      - "8601:53/udp"
+    networks:
+      mtaeda:
+        ipv4_address: 10.3.0.10
     command: "agent"
+networks:
+  mtaeda:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.3.0.0/27
