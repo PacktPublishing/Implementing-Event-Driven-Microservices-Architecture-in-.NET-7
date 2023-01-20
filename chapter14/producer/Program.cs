@@ -1,8 +1,9 @@
 ﻿
 using Confluent.Kafka;
 using Microsoft.ApplicationInsights;
-using Microsoft.Net.Http.Headers;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using producer;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 var producerConfig = new ProducerConfig();
@@ -18,6 +19,9 @@ builder.Services.AddApplicationInsightsTelemetry(
     "--- insert your app insights connection string ---"
 );
 builder.Services.AddApplicationInsightsKubernetesEnricher();
+builder.Services.AddMvcCore().AddApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -30,6 +34,15 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
+
+app.UseSwagger();
+
+app.UseSwaggerUI();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.MapGet("/", () => "Hello World!");
 
