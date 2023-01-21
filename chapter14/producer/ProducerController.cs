@@ -8,9 +8,9 @@ namespace producer
     public class ProducerController : ControllerBase
     {
         private readonly HttpContext httpcontext;
-        public ProducerController(HttpContext httpcontext)
+        public ProducerController(IHttpContextAccessor httpContextAccessor)
         {
-            this.httpcontext = httpcontext;
+            this.httpcontext = httpContextAccessor.HttpContext;
 
         }
 

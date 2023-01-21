@@ -18,6 +18,7 @@ namespace consumer
                 telemetryClient.Context.Operation.Id = result.Message.Value.OperationId.ToString();
                 telemetryClient.Context.Operation.ParentId = result.Message.Value.Id.ToString();
                 telemetryClient.TrackTrace("Consumer reacted to the message: " + result.Message.Value.Message);
+                Console.WriteLine("Consumer reacted to the message: " + result.Message.Value.Message);
                 File.WriteAllText(Path.GetTempFileName(), result.Message.Value.Message);
             });
         }

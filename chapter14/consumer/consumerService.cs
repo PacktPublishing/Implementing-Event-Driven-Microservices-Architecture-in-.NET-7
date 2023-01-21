@@ -33,6 +33,7 @@ namespace consumer
                 consumer.Subscribe(topicName);
                 try
                 {
+                    Console.WriteLine($"Trying to consume events on topic '{topicName}'...");
                     var result = consumer.Consume(stoppingToken);
                     consumer.Commit(result);
                     await new MessageReceivedEventHandler().Handle(result, _telemetryClient);

@@ -19,9 +19,11 @@ builder.Services.AddApplicationInsightsTelemetry(
     "--- insert your app insights connection string ---"
 );
 builder.Services.AddApplicationInsightsKubernetesEnricher();
+
 builder.Services.AddMvcCore().AddApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -38,6 +40,8 @@ if (app.Environment.IsDevelopment())
 app.UseSwagger();
 
 app.UseSwaggerUI();
+
+app.UseRouting();
 
 app.UseEndpoints(endpoints =>
 {
