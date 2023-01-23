@@ -6,8 +6,6 @@ services:
     build:
       context: .
       dockerfile: consumer/Dockerfile
-    environment:
-      - PORT=123
     ports:
     - "123:123"
     networks:
@@ -15,8 +13,8 @@ services:
         ipv4_address: 10.3.0.11
     dns:
       - 10.3.0.9 #consul-server
-      - 1.1.1.1 #Cloudflare
-    entrypoint: ./entrypoint.sh --type consumer
+      - 1.1.1.1 #Cloudflare fallback
+    entrypoint: ./entrypoint.sh
     depends_on:
     - consul-client
 
@@ -25,8 +23,6 @@ services:
     build:
       context: .
       dockerfile: consumer/Dockerfile
-    environment:
-      - PORT=123
     ports:
     - "124:123"
     networks:
@@ -34,8 +30,8 @@ services:
         ipv4_address: 10.3.0.2
     dns:
       - 10.3.0.9 #consul-server
-      - 1.1.1.1 #Cloudflare
-    entrypoint: ./entrypoint.sh --type consumer
+      - 1.1.1.1 #Cloudflare fallback
+    entrypoint: ./entrypoint.sh
     depends_on:
     - consul-client
   
@@ -44,8 +40,6 @@ services:
     build:
       context: .
       dockerfile: producer/Dockerfile
-    environment:
-      - PORT=80
     ports:
     - "5000:80"
     networks:
@@ -53,8 +47,8 @@ services:
         ipv4_address: 10.3.0.3
     dns:
       - 10.3.0.9 #consul-server
-      - 1.1.1.1 #Cloudflare
-    entrypoint: ./entrypoint.sh --type producer
+      - 1.1.1.1 #Cloudflare fallback
+    entrypoint: ./entrypoint.sh
     depends_on:
     - consul-client
 
@@ -63,8 +57,6 @@ services:
     build:
       context: .
       dockerfile: producer/Dockerfile
-    environment:
-      - PORT=80
     ports:
     - "5001:80"
     networks:
@@ -72,8 +64,8 @@ services:
         ipv4_address: 10.3.0.4
     dns:
       - 10.3.0.9 #consul-server
-      - 1.1.1.1 #Cloudflare
-    entrypoint: ./entrypoint.sh --type producer
+      - 1.1.1.1 #Cloudflare fallback
+    entrypoint: ./entrypoint.sh
     depends_on:
     - consul-client
 
@@ -174,7 +166,6 @@ services:
     volumes:
      - ./consul/client.json:/consul/config/client.json:ro
     ports:
-      - "8501:8500"
       - "8601:53/tcp"
       - "8601:53/udp"
     networks:
