@@ -36,6 +36,5 @@ namespace producer
             }
             return new OkObjectResult("Ok!");
         }
-
     }
 }

@@ -20,9 +20,9 @@ builder.Services.AddApplicationInsightsTelemetry(
 );
 builder.Services.AddApplicationInsightsKubernetesEnricher();
 
+builder.Services.AddControllers();
 builder.Services.AddMvcCore().AddApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
