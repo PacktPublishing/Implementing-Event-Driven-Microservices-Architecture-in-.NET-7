@@ -10,10 +10,9 @@ var forecasts = meter.CreateCounter<int>("forecasts", "degrees", "Sample forecas
 
 var singularity = new SingleRandomThing(314159);
 MeterProvider? meterProvider = Sdk.CreateMeterProviderBuilder().AddMeter("SampleMeter").Build();
-TracerProvider? traceProvider = Sdk.CreateTracerProviderBuilder().AddSource("SampleMeter").Build();
+TracerProvider? traceProvider = Sdk.CreateTracerProviderBuilder().Build();
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,6 +25,7 @@ builder.Services.AddOpenTelemetry().WithTracing(config => {
     config.AddConsoleExporter();
 }).StartWithHost();
 builder.Services.AddSingleton(meterProvider);
+builder.Services.AddSingleton<Tracer>(traceProvider.GetTracer("SampleTracer"));
 builder.Services.AddTransient((c) =>
 {
     return singularity;
@@ -92,7 +92,10 @@ app.MapGet("/metricstest", () =>
 
 app.MapGet("/activity", () =>
 {
-    var act = new SimpleActivityClass();
+    using (var act = new SimpleActivityClass(app.Services.GetRequiredService<Tracer>()))
+    {
+        act.DoSomethingTraceable();
+    }
     return "ok";
 }).WithName("TraceActivity");
 
