@@ -1,16 +1,16 @@
-using OpenTelemetry.Metrics;
 using OpenTelemetry;
-using System.Diagnostics.Metrics;
 using OpenTelemetry.Trace;
 using MetricTester;
+using System.Diagnostics.Metrics;
+using OpenTelemetry.Metrics;
 
 var meter = new Meter("SampleMeter");
 var counter = meter.CreateCounter<int>("requests-received", "Requests", "Simple counter using the Sample Meter");
 var forecasts = meter.CreateCounter<int>("forecasts", "degrees", "Sample forecast captured from service call");
 
 var singularity = new SingleRandomThing(314159);
-MeterProvider? meterProvider = Sdk.CreateMeterProviderBuilder().AddMeter("SampleMeter").AddPrometheusExporter().Build();
-TracerProvider? traceProvider = Sdk.CreateTracerProviderBuilder().AddSource("SampleMeter").AddJaegerExporter().Build();
+MeterProvider? meterProvider = Sdk.CreateMeterProviderBuilder().AddMeter("SampleMeter").Build();
+TracerProvider? traceProvider = Sdk.CreateTracerProviderBuilder().AddSource("SampleMeter").Build();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +19,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddOpenTelemetry().WithTracing(config => { config.AddJaegerExporter(); }).StartWithHost();
+
+builder.Services.AddOpenTelemetry().WithTracing(config => {
+    config.AddJaegerExporter();
+    config.AddAspNetCoreInstrumentation();
+    config.AddConsoleExporter();
+}).StartWithHost();
 builder.Services.AddSingleton(meterProvider);
 builder.Services.AddTransient((c) =>
 {
@@ -47,7 +52,6 @@ app.Use((context, next) =>
 });
 
 app.UseHttpsRedirection();
-app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
 var summaries = new[]
 {
@@ -72,8 +76,7 @@ app.MapGet("/weatherforecast", () =>
 
 
 })
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+.WithName("GetWeatherForecast");
 
 app.MapGet("/metricstest", () =>
 {
@@ -85,7 +88,13 @@ app.MapGet("/metricstest", () =>
     }
     return $"Random number is {nbr}.";
 
-}).WithOpenApi().WithName("MetricsTest");
+}).WithName("MetricsTest");
+
+app.MapGet("/activity", () =>
+{
+    var act = new SimpleActivityClass();
+    return "ok";
+}).WithName("TraceActivity");
 
 app.Run();
 
