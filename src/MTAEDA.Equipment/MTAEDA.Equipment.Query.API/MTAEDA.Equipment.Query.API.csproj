@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>9d1966ff-3d6c-40fd-a79d-84e75073a2ec</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Confluent.Kafka" Version="1.8.2" />
-    <PackageReference Include="Confluent.SchemaRegistry" Version="1.8.2" />
-    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.20.0-beta1" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0-beta1" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Confluent.Kafka" Version="1.9.3" />
+    <PackageReference Include="Confluent.SchemaRegistry" Version="1.9.3" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>

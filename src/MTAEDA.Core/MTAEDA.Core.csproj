@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
@@ -11,12 +11,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CloudNative.CloudEvents" Version="2.1.1" />
-    <PackageReference Include="Confluent.Kafka" Version="1.7.0" />
-    <PackageReference Include="Confluent.SchemaRegistry" Version="1.7.0" />
-    <PackageReference Include="MediatR" Version="9.0.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="CloudNative.CloudEvents" Version="2.5.1" />
+    <PackageReference Include="Confluent.Kafka" Version="1.9.3" />
+    <PackageReference Include="Confluent.SchemaRegistry" Version="1.9.3" />
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

@@ -24,7 +24,7 @@ namespace MTAEDA.Equipment.API
             Configuration.Bind("Producer", producerConfig);
             Configuration.Bind("ProduceTo", "");
             services.AddSingleton<ProducerConfig>(producerConfig);
-
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -41,7 +41,7 @@ namespace MTAEDA.Equipment.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MTAEDA.Equipment.Query.API v1"));
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
