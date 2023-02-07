@@ -1,0 +1,32 @@
+{
+  "node_name": "consul-client",
+  "server": false,
+  "datacenter": "rathforddc",
+  "data_dir": "/consul/data",
+  "log_level": "INFO",
+  "retry_join": ["consul-server"],
+  "addresses": {
+    "http": "0.0.0.0",
+    "dns": "0.0.0.0"
+  },
+  "ports": {
+    "dns": 53
+  },
+  "services": [
+    {
+      "id": "dns",
+      "name": "dns",
+      "tags": ["secondary"],
+      "address": "localhost",
+      "port": 53,
+      "enable_tag_override": false,
+      "check": {
+        "id": "dns",
+        "name": "Consul DNS TCP on port 53",
+        "tcp": "localhost:53",
+        "interval": "10s",
+        "timeout": "1s"
+      }
+    }
+  ]
+}
