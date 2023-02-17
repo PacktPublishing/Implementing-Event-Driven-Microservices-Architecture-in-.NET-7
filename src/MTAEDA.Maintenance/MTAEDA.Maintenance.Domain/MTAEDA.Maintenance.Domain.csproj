@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="MTAEDA.Core">
-      <HintPath>..\..\MTAEDA.Core\bin\Debug\net6.0\MTAEDA.Core.dll</HintPath>
+      <HintPath>..\..\MTAEDA.Core\bin\Debug\net7.0\MTAEDA.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
 
@@ -21,3 +21,4 @@
   </ItemGroup>
 
 </Project>
+
