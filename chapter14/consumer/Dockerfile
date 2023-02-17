@@ -1,6 +1,6 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/runtime:6.0 AS base
+FROM mcr.microsoft.com/dotnet/runtime:7.0 AS base
 WORKDIR /app
 
 # <add commands here to modify both the debug and release container image>
@@ -9,7 +9,7 @@ RUN echo "This is my base image" > /tmp/image_type
 FROM base as mydebug
 RUN echo "This is my debug image" > /tmp/image_type
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["consumer/consumer.csproj", "consumer/"]
 RUN dotnet restore "consumer/consumer.csproj"
