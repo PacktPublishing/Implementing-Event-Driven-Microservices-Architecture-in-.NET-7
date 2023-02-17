@@ -33,26 +33,36 @@ namespace consumer
             while (!stoppingToken.IsCancellationRequested)
             {
                 consumer.Subscribe(topicName);
-                var result = consumer.Consume(stoppingToken);
-                Offset originalOffset = consumer.Position(result.TopicPartition);
                 try
                 {
-                    using (var localTransaction = new TransactionScope())
+                    Console.WriteLine($"Trying to consume events on topic '{topicName}'...");
+                    var result = consumer.Consume(stoppingToken);
+                    Offset originalOffset = consumer.Position(result.TopicPartition);
+                    try
                     {
-                        consumer.StoreOffset(result);
-                        //Save internal progress here
-                        await new MessageReceivedEventHandler().Handle(result, _telemetryClient);
+                        using (var localTransaction = new TransactionScope())
+                        {
+                            consumer.StoreOffset(result);
+                            //Save internal progress here
+                            await new MessageReceivedEventHandler().Handle(result, _telemetryClient);
 
-                        // Only risk of uncoordinated failure is a crash between these two lines...
+                            // Only risk of uncoordinated failure is a crash between these two lines...
+                            consumer.Commit(result);
+                            localTransaction.Complete();
+                        }
+                    }
+                    catch (TransactionAbortedException)
+                    {
+                        //Restore the offset position
+                        consumer.StoreOffset(new TopicPartitionOffset(result.TopicPartition, originalOffset));
                         consumer.Commit(result);
-                        localTransaction.Complete();
                     }
                 }
-                catch (TransactionAbortedException)
+                catch (Exception ex)
                 {
-                    //Restore the offset position
-                    consumer.StoreOffset(new TopicPartitionOffset(result.TopicPartition, originalOffset));
-                    consumer.Commit(result);
+                    _telemetryClient.TrackException(ex);
+                    Console.WriteLine($"Failed to consume events on topic '{topicName}': {ex.Message}");
+                    Thread.Sleep(10000);
                 }
             }
         }
